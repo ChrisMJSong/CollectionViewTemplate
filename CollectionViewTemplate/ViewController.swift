@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     private let sectionInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
     private let itemsPerRow: CGFloat = 2
+    private let userCellIdentifier = "UserCell"
 
     @IBOutlet weak var collectionView: UICollectionView!
     var collectionViewRenderer: CollectionViewShim!
@@ -22,6 +23,29 @@ class ViewController: UIViewController {
         self.collectionViewRenderer = CollectionViewShim(cellTypes: [CellTypeDefinition(nibFileName: "UserCell", cellIdentifier: "UserCell")], collectionView: collectionView)
         self.collectionViewRenderer.collectionViewModel = collectionViewModelForUserList(model)
         self.collectionView.delegate = self // Delegate implement in this class
+    }
+    
+    @IBAction func addUser(_ sender: Any) {
+        let randInt = arc4random()%10
+        self.model.append(
+            User(username: "New User \(randInt)", identifier: userCellIdentifier)
+        )
+        self.collectionViewRenderer.newViewModelWithChangreset(
+            collectionViewModelForUserList(model), changeSet: .insert(
+                IndexPath(item: self.model.count - 1, section: 0)
+            ), animate: true)
+    }
+    
+    @IBAction func refreshAllUserName(_ sender: Any) {
+        self.model = self.model.map{_ in
+            let randInt = arc4random()%10
+            return User(username: "New User \(randInt)", identifier: userCellIdentifier)
+        }
+        let indexPaths = collectionView.indexPathsForVisibleItems
+        
+        for indexPath in indexPaths {
+            self.collectionViewRenderer.newViewModelWithChangreset(collectionViewModelForUserList(model), changeSet: .reload(indexPath), animate: true)
+        }
     }
 }
 

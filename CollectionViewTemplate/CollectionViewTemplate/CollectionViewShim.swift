@@ -9,9 +9,9 @@
 import UIKit
 
 enum Changeset {
-    case add(IndexPath)
+    case insert(IndexPath)
     case delete(IndexPath)
-    case refreshOnly
+    case reload(IndexPath)
 }
 
 struct CellTypeDefinition {
@@ -37,6 +37,31 @@ public final class CollectionViewShim: NSObject {
         
         self.collectionView.dataSource = self
 //        self.collectionView.delegate = self   // implementation in ViewController
+    }
+    
+    func newViewModelWithChangreset(_ newViewModel: CollectionViewModel, changeSet: Changeset) {
+        self.newViewModelWithChangreset(newViewModel, changeSet: changeSet, animate: false)
+    }
+    
+    func newViewModelWithChangreset(_ newViewModel: CollectionViewModel, changeSet: Changeset, animate: Bool) {
+        self.collectionViewModel = newViewModel
+        
+        if animate {
+            switch changeSet {
+            case let .insert(indexPath):
+                self.collectionView.insertItems(at: [indexPath])
+                
+            case let .delete(indexPath):
+                self.collectionView.deleteItems(at: [indexPath])
+                break
+                
+            case let .reload(indexPath):
+                self.collectionView.reloadItems(at: [indexPath])
+                break
+            }
+        } else {
+            self.collectionView.reloadData()
+        }
     }
 }
 
