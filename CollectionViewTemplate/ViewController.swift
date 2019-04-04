@@ -15,12 +15,12 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var collectionView: UICollectionView!
     var collectionViewRenderer: CollectionViewShim!
-    var model: [User] = [User(username: "A", identifier: "UserCell"), User(username: "B", identifier: "UserCell"), User(username: "C", identifier: "UserCell")]
+    var model: [User] = [User(username: "A", identifier: "UserCell"), User(username: "B", identifier: "OtherCell"), User(username: "C", identifier: "OtherCell"), User(username: "D", identifier: "UserCell")]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        self.collectionViewRenderer = CollectionViewShim(cellTypes: [CellTypeDefinition(nibFileName: "UserCell", cellIdentifier: "UserCell")], collectionView: collectionView)
+        self.collectionViewRenderer = CollectionViewShim(cellTypes: [CellTypeDefinition(nibFileName: "UserCell", cellIdentifier: "UserCell"), CellTypeDefinition(nibFileName: "OtherCell", cellIdentifier: "OtherCell")], collectionView: collectionView)
         self.collectionViewRenderer.collectionViewModel = collectionViewModelForUserList(model)
         self.collectionView.delegate = self // Delegate implement in this class
     }

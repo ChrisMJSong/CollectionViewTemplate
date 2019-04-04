@@ -17,10 +17,20 @@ func collectionViewModelForUserList(_ users: [User]) -> CollectionViewModel {
 
 func viewModelForUser(_ user: User) -> CollectionViewCellModel {
     func applyViewModelToCell(_ cell: UICollectionViewCell, user: Any) {
-        guard let cell = cell as? UserCell else { return }
-        guard let user = user as? User else { return }
-        
-        cell.nameLabel.text = user.username
+        switch cell {
+        case is UserCell:
+            guard let cell = cell as? UserCell else { return }
+            guard let user = user as? User else { return }
+            cell.nameLabel.text = user.username
+            
+        case is OtherCell:
+            guard let cell = cell as? OtherCell else { return }
+            guard let user = user as? User else { return }
+            cell.otherLabel.text = user.username
+            
+        default:
+            return
+        }
     }
     
     return CollectionViewCellModel(cellIdentifier: user.identifier, applyViewModelToCell: applyViewModelToCell, customData: user)

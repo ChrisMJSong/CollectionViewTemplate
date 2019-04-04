@@ -20,6 +20,8 @@
 		CE3F0F242251F927006EFACC /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3F0F232251F927006EFACC /* UserCell.swift */; };
 		CE3F0F282251F961006EFACC /* UserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE3F0F272251F961006EFACC /* UserCell.xib */; };
 		CE3F0F2A2251FF18006EFACC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3F0F292251FF18006EFACC /* User.swift */; };
+		CEABE26622559D42004D1C40 /* OtherCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEABE26422559D42004D1C40 /* OtherCell.xib */; };
+		CEABE26722559D42004D1C40 /* OtherCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEABE26522559D42004D1C40 /* OtherCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +40,8 @@
 		CE3F0F232251F927006EFACC /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
 		CE3F0F272251F961006EFACC /* UserCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserCell.xib; sourceTree = "<group>"; };
 		CE3F0F292251FF18006EFACC /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CEABE26422559D42004D1C40 /* OtherCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OtherCell.xib; sourceTree = "<group>"; };
+		CEABE26522559D42004D1C40 /* OtherCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OtherCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +100,8 @@
 		CE3F0F202251F894006EFACC /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				CEABE26522559D42004D1C40 /* OtherCell.swift */,
+				CEABE26422559D42004D1C40 /* OtherCell.xib */,
 				CE3F0F232251F927006EFACC /* UserCell.swift */,
 				CE3F0F272251F961006EFACC /* UserCell.xib */,
 			);
@@ -172,6 +178,7 @@
 			files = (
 				CE3F0F282251F961006EFACC /* UserCell.xib in Resources */,
 				CE3F0F102251E770006EFACC /* LaunchScreen.storyboard in Resources */,
+				CEABE26622559D42004D1C40 /* OtherCell.xib in Resources */,
 				CE3F0F0D2251E770006EFACC /* Assets.xcassets in Resources */,
 				CE3F0F0B2251E76F006EFACC /* Main.storyboard in Resources */,
 			);
@@ -186,6 +193,7 @@
 			files = (
 				CE3F0F242251F927006EFACC /* UserCell.swift in Sources */,
 				CE3F0F1D2251EAF9006EFACC /* CollectionViewCellModel.swift in Sources */,
+				CEABE26722559D42004D1C40 /* OtherCell.swift in Sources */,
 				CE3F0F082251E76F006EFACC /* ViewController.swift in Sources */,
 				CE3F0F222251F8C5006EFACC /* ViewModelProvider.swift in Sources */,
 				CE3F0F062251E76F006EFACC /* AppDelegate.swift in Sources */,
