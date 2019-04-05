@@ -8,11 +8,30 @@
 
 import UIKit
 
-func collectionViewModelForUserList(_ users: [User]) -> CollectionViewModel {
-    return CollectionViewModel(sections: [
-        CollectionViewSectionModel(cells:
-            users.map({viewModelForUser($0)}))
-        ])
+func collectionViewModelForUserList(_ users: [[User]], sections: [SectionInfo]?) -> CollectionViewModel {
+    var collectionViewItem: [(users: [User], section: SectionInfo?)] = []
+    for i in 0..<users.count {
+        collectionViewItem.append((users: users[i], section: sections?[i]))
+    }
+    
+    return CollectionViewModel(sections: collectionViewItem.map({
+        viewModelForSection(cells: $0.users.map({viewModelForUser($0)}), section: $0.section)
+    }))
+}
+
+func viewModelForSection(cells: [CollectionViewCellModel], section: SectionInfo?) -> CollectionViewSectionModel {
+    func applyViewModelToSectionView(_ headerView: UICollectionReusableView, sectionInfo: Any?) {
+        switch headerView {
+        case is SupplementaryHeader:
+            guard let sectionView = headerView as? SupplementaryHeader else { return }
+            guard let sectionInfo = sectionInfo as? SectionInfo else { return }
+            sectionView.titleLabel.text = sectionInfo.title
+        default:
+            return
+        }
+    }
+    
+    return CollectionViewSectionModel(cells: cells, applyViewModelToSectionView: applyViewModelToSectionView, sectionInfo: section)
 }
 
 func viewModelForUser(_ user: User) -> CollectionViewCellModel {

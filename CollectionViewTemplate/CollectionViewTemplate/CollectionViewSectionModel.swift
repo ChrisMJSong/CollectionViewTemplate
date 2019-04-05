@@ -10,9 +10,18 @@ import UIKit
 
 struct CollectionViewSectionModel {
     let cells: [CollectionViewCellModel]
-    var sectionIdentifier: String? = nil
+    var sectionInfo: SectionInfo? = nil
+    let applyViewModelToSectionView: (UICollectionReusableView, Any?) -> Void
     
-    init(cells: [CollectionViewCellModel]) {
+    init(cells: [CollectionViewCellModel], applyViewModelToSectionView: @escaping(UICollectionReusableView, Any?)->Void, sectionInfo: SectionInfo?) {
         self.cells = cells
+        self.applyViewModelToSectionView = applyViewModelToSectionView
+        self.sectionInfo = sectionInfo
+    }
+}
+
+extension CollectionViewSectionModel {
+    func applyViewModelToSectionView(_ cell: UICollectionReusableView) {
+        self.applyViewModelToSectionView(cell, self.sectionInfo)
     }
 }

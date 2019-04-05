@@ -11,4 +11,10 @@ import Foundation
 struct User {
     let username: String
     var identifier: String
+    var sectionIdentifier: String?
+    
+    init(username: String, identifier: String) {
+        self.username   = username
+        self.identifier = identifier
+    }
 }

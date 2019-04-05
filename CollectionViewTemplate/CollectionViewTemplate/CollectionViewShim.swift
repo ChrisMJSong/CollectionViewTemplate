@@ -14,6 +14,12 @@ enum Changeset {
     case reload(IndexPath)
 }
 
+struct HeaderTypeDefinition {
+    let nibFileName: String
+    let sectionIdentifier: String
+    let kind: String
+}
+
 struct CellTypeDefinition {
     let nibFileName: String
     let cellIdentifier: String
@@ -24,7 +30,11 @@ public final class CollectionViewShim: NSObject {
     let cellTypes: [CellTypeDefinition]
     let collectionView: UICollectionView
     
-    init(cellTypes: [CellTypeDefinition], collectionView: UICollectionView) {
+    convenience init(cellTypes: [CellTypeDefinition], collectionView: UICollectionView) {
+        self.init(cellTypes: cellTypes, headerTypes: nil, collectionView: collectionView)
+    }
+    
+    init(cellTypes: [CellTypeDefinition], headerTypes: [HeaderTypeDefinition]?, collectionView: UICollectionView) {
         self.cellTypes = cellTypes
         self.collectionView = collectionView
         
@@ -32,6 +42,11 @@ public final class CollectionViewShim: NSObject {
             let nibFile = UINib(nibName: $0.nibFileName, bundle: nil)
             collectionView.register(nibFile, forCellWithReuseIdentifier: $0.cellIdentifier)
         }
+        
+        headerTypes?.forEach({
+            let nibFile = UINib(nibName: $0.nibFileName, bundle: nil)
+            collectionView.register(nibFile, forSupplementaryViewOfKind: $0.kind, withReuseIdentifier: $0.sectionIdentifier)
+        })
         
         super.init()
         
@@ -81,5 +96,18 @@ extension CollectionViewShim: UICollectionViewDataSource {
         cellViewModel.applyViewModelToCell(cell)
         
         return cell
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        guard let sectionIdentifier = collectionViewModel.sections[indexPath.section].sectionInfo?.identifier else {
+            assert(false, "Invalide element type")
+        }
+        let sectionViewModel = self.collectionViewModel.sections[indexPath.section]
+        
+        let supplementaryView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: sectionIdentifier, for: indexPath)
+        
+        sectionViewModel.applyViewModelToSectionView(supplementaryView)
+        
+        return supplementaryView
     }
 }
