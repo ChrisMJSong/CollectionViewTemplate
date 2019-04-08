@@ -33,7 +33,7 @@ class ViewController: UIViewController {
             User(username: "New User \(randInt)", identifier: userCellIdentifier)
         )
         self.collectionViewRenderer.newViewModelWithChangreset(
-            collectionViewModelForUserList(cellModels, sections: nil), changeSet: .insert(
+            collectionViewModelForUserList(cellModels, sections: sectionModels), changeSet: .insert(
                 IndexPath(item: self.cellModels[0].count - 1, section: 0)
             ), animate: true)
     }
@@ -46,7 +46,7 @@ class ViewController: UIViewController {
         let indexPaths = collectionView.indexPathsForVisibleItems
         
         for indexPath in indexPaths {
-            self.collectionViewRenderer.newViewModelWithChangreset(collectionViewModelForUserList(cellModels, sections: nil), changeSet: .reload(indexPath), animate: true)
+            self.collectionViewRenderer.newViewModelWithChangreset(collectionViewModelForUserList(cellModels, sections: sectionModels), changeSet: .reload(indexPath), animate: true)
         }
     }
 }
