@@ -10,7 +10,7 @@ import UIKit
 
 struct CollectionViewSectionModel {
     let cells: [CollectionViewCellModel]
-    var sectionInfo: SectionInfo? = nil
+    var sectionInfo: Any? = nil
     let applyViewModelToSectionView: (UICollectionReusableView, Any?) -> Void
     
     init(cells: [CollectionViewCellModel], applyViewModelToSectionView: @escaping(UICollectionReusableView, Any?)->Void, sectionInfo: SectionInfo?) {
