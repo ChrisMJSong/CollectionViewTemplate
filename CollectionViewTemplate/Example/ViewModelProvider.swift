@@ -31,7 +31,7 @@ func viewModelForSection(cells: [CollectionViewCellModel], section: SectionInfo?
         }
     }
     
-    return CollectionViewSectionModel(cells: cells, applyViewModelToSectionView: applyViewModelToSectionView, sectionInfo: section)
+    return CollectionViewSectionModel(sectionIdentifier: section?.identifier, cells: cells, applyViewModelToSectionView: applyViewModelToSectionView, customData: section)
 }
 
 func viewModelForUser(_ user: User) -> CollectionViewCellModel {

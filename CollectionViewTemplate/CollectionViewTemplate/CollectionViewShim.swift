@@ -99,9 +99,8 @@ extension CollectionViewShim: UICollectionViewDataSource {
     }
     
     public func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let sectionInfo = collectionViewModel.sections[indexPath.section].sectionInfo as? SectionInfo else {
+        guard let sectionIdentifier = collectionViewModel.sections[indexPath.section].sectionIdentifer else {
             assert(false, "Invalide element type") }
-        let sectionIdentifier = sectionInfo.identifier
         
         let sectionViewModel = self.collectionViewModel.sections[indexPath.section]
         
