@@ -12,6 +12,7 @@ enum Changeset {
     case insert(IndexPath)
     case delete(IndexPath)
     case reload(IndexPath)
+    case select(IndexPath)
 }
 
 struct HeaderTypeDefinition {
@@ -73,6 +74,9 @@ public final class CollectionViewShim: NSObject {
             case let .reload(indexPath):
                 self.collectionView.reloadItems(at: [indexPath])
                 break
+                
+            case let .select(indexPath):
+                self.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: .centeredVertically)
             }
         } else {
             self.collectionView.reloadData()
@@ -102,7 +106,7 @@ extension CollectionViewShim: UICollectionViewDataSource {
         guard let sectionIdentifier = collectionViewModel.sections[indexPath.section].sectionIdentifer else
         {
             return UICollectionReusableView()   // avoid error
-            assert(false, "Invalide element type")
+//            assert(false, "Invalide element type")
         }
         
         let sectionViewModel = self.collectionViewModel.sections[indexPath.section]
